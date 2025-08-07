@@ -74,7 +74,6 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    @Value("${backend.base.url}")
     private String saveImage(MultipartFile imageFile) throws IOException {
         String originalFilename = imageFile.getOriginalFilename().replaceAll("\\s+", "_");
 
@@ -89,7 +88,6 @@ public class ProductService {
         Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
         return backendBaseUrl + "/uploads/" + fileName;
-
     }
 
 }
