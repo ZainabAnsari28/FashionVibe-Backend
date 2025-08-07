@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +23,9 @@ public class ProductService {
     private ProductRepository productRepository;
 
     private final String uploadDir = "src/main/resources/static/uploads/";
+
+    @Value("${backend.base.url}")
+    private String backendBaseUrl;
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();
@@ -70,6 +74,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    @Value("${backend.base.url}")
     private String saveImage(MultipartFile imageFile) throws IOException {
         String originalFilename = imageFile.getOriginalFilename().replaceAll("\\s+", "_");
 
@@ -83,7 +88,7 @@ public class ProductService {
         Path filePath = uploadPath.resolve(fileName);
         Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-        return "http://localhost:8080/uploads/" + fileName;
+        return backendBaseUrl + "/uploads/" + fileName;
 
     }
 
