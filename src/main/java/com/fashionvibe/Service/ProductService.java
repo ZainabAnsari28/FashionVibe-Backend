@@ -87,7 +87,7 @@ public class ProductService {
         Path filePath = uploadPath.resolve(fileName);
         Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-        return backendBaseUrl + "/uploads/" + fileName;
+        return "https://fashionvibe-backend-production.up.railway.app/api/uploads/" + fileName;
     }
 
 }
