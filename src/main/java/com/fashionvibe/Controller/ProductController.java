@@ -20,7 +20,6 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    // Get all products
     @GetMapping("/all")
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
